@@ -1410,24 +1410,18 @@ async function gantiData() {
 async function addEmail() {
     const btn = document.getElementById('addEmailButton');
     const email = document.getElementById('emailInput').value.trim();
-    const limit = document.getElementById('jumlahResult').value;
-
-    if (!email) {
-        showToast('Email tidak boleh kosong', 'error');
-        return;
-    }
-
+    const limit = parseInt(document.getElementById('jumlahResult').value) || 1;
+    if (!email) { showToast('Email tidak boleh kosong', 'error'); return; }
     btn.disabled = true;
     btn.innerHTML = '<div class="spinner"></div> Adding...';
-
     try {
-        const res = await fetch(`${rorr}?add=1&email=${encodeURIComponent(email)}&jumlahResult=${encodeURIComponent(limit)}`);
+        const res = await fetch(`${rorr}?add=1&email=${encodeURIComponent(email)}&jumlahResult=${limit}`);
         const data = await res.json();
         if (data.success) {
+            const p = getProt(); p[email] = { t: limit, c: limit }; setProt(p);
             showToast('Email berhasil ditambahkan', 'success');
             document.getElementById('emailInput').value = '';
             document.getElementById('jumlahResult').value = '1';
-            fetchEmails();
         } else {
             showToast(data.message || 'Gagal menambah email', 'error');
         }
