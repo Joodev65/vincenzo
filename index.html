@@ -385,6 +385,164 @@ body {
     50% { opacity: 0.4; }
 }
 
+
+.music-player {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 9998;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(192,192,200,0.04);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: var(--transition);
+    max-width: 320px;
+    width: auto;
+}
+.music-player:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 0 1px var(--glow);
+}
+.music-player.hidden {
+    transform: translateY(120%);
+    opacity: 0;
+    pointer-events: none;
+}
+.music-cover {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--silver-700), var(--silver-800));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+.music-cover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(192,192,200,0.1));
+}
+.music-cover svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--silver-300);
+    stroke-width: 1.5;
+    fill: none;
+    position: relative;
+    z-index: 1;
+}
+.music-info {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+.music-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--silver-100);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.2px;
+}
+.music-artist {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--silver-500);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.music-visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 24px;
+    padding: 0 4px;
+}
+.visualizer-bar {
+    width: 3px;
+    background: linear-gradient(to top, var(--silver-600), var(--silver-300));
+    border-radius: 2px;
+    animation: vizPlay 0.8s ease-in-out infinite alternate;
+    opacity: 0.6;
+}
+.visualizer-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+.visualizer-bar:nth-child(2) { height: 16px; animation-delay: 0.1s; }
+.visualizer-bar:nth-child(3) { height: 12px; animation-delay: 0.2s; }
+.visualizer-bar:nth-child(4) { height: 20px; animation-delay: 0.15s; }
+.visualizer-bar:nth-child(5) { height: 10px; animation-delay: 0.05s; }
+@keyframes vizPlay {
+    0% { transform: scaleY(0.3); opacity: 0.3; }
+    100% { transform: scaleY(1); opacity: 0.8; }
+}
+.music-visualizer.paused .visualizer-bar {
+    animation: none;
+    height: 3px !important;
+    opacity: 0.2;
+    transition: all 0.4s ease;
+}
+.music-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.music-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-elevated);
+    color: var(--silver-300);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+.music-btn:hover {
+    border-color: var(--border-hover);
+    color: var(--silver-100);
+    background: var(--silver-800);
+    transform: scale(1.08);
+}
+.music-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+.music-progress {
+    position: absolute;
+    bottom: 0;
+    left: 18px;
+    right: 18px;
+    height: 2px;
+    background: var(--bg-elevated);
+    border-radius: 1px;
+    overflow: hidden;
+}
+.music-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--silver-600), var(--silver-300));
+    border-radius: 1px;
+    transition: width 0.3s linear;
+}
 .card {
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -689,7 +847,166 @@ body {
 
 @media (max-width: 400px) {
     .container { padding: 0 16px; }
-    .card { padding: 20px; }
+    
+ 
+.music-player {
+    position: fixed;
+    bottom: 24px;
+    left: 24px;
+    z-index: 9998;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5), 0 0 0 1px rgba(192,192,200,0.04);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    transition: var(--transition);
+    max-width: 320px;
+    width: auto;
+}
+.music-player:hover {
+    border-color: var(--border-hover);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 0 1px var(--glow);
+}
+.music-player.hidden {
+    transform: translateY(120%);
+    opacity: 0;
+    pointer-events: none;
+}
+.music-cover {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(135deg, var(--silver-700), var(--silver-800));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+.music-cover::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 40%, rgba(192,192,200,0.1));
+}
+.music-cover svg {
+    width: 22px;
+    height: 22px;
+    stroke: var(--silver-300);
+    stroke-width: 1.5;
+    fill: none;
+    position: relative;
+    z-index: 1;
+}
+.music-info {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+.music-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--silver-100);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: -0.2px;
+}
+.music-artist {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--silver-500);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.music-visualizer {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    height: 24px;
+    padding: 0 4px;
+}
+.visualizer-bar {
+    width: 3px;
+    background: linear-gradient(to top, var(--silver-600), var(--silver-300));
+    border-radius: 2px;
+    animation: vizPlay 0.8s ease-in-out infinite alternate;
+    opacity: 0.6;
+}
+.visualizer-bar:nth-child(1) { height: 8px; animation-delay: 0s; }
+.visualizer-bar:nth-child(2) { height: 16px; animation-delay: 0.1s; }
+.visualizer-bar:nth-child(3) { height: 12px; animation-delay: 0.2s; }
+.visualizer-bar:nth-child(4) { height: 20px; animation-delay: 0.15s; }
+.visualizer-bar:nth-child(5) { height: 10px; animation-delay: 0.05s; }
+@keyframes vizPlay {
+    0% { transform: scaleY(0.3); opacity: 0.3; }
+    100% { transform: scaleY(1); opacity: 0.8; }
+}
+.music-visualizer.paused .visualizer-bar {
+    animation: none;
+    height: 3px !important;
+    opacity: 0.2;
+    transition: all 0.4s ease;
+}
+.music-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+.music-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid var(--border);
+    background: var(--bg-elevated);
+    color: var(--silver-300);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+.music-btn:hover {
+    border-color: var(--border-hover);
+    color: var(--silver-100);
+    background: var(--silver-800);
+    transform: scale(1.08);
+}
+.music-btn svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+}
+.music-progress {
+    position: absolute;
+    bottom: 0;
+    left: 18px;
+    right: 18px;
+    height: 2px;
+    background: var(--bg-elevated);
+    border-radius: 1px;
+    overflow: hidden;
+}
+.music-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--silver-600), var(--silver-300));
+    border-radius: 1px;
+    transition: width 0.3s linear;
+}
+.card { padding: 20px; }
     .brand-title { font-size: 22px; }
 }
 
@@ -742,6 +1059,9 @@ body {
     </div>
 </div>
 
+<audio id="bgAudio" loop preload="auto">
+    <source src="https://files.catbox.moe/uy4hbt.m4a" type="audio/mp4">
+</audio>
 <div class="container">
     <header class="header animate-in">
         <div class="header-video-wrapper">
@@ -847,7 +1167,13 @@ setInterval(updateClock, 1000);
 updateClock();
 
 function showPopup() {
-    if (localStorage.getItem('donationPopupDismissed') === 'true') return;
+    if (localStorage.getItem('donationPopupDismissed') === 'true') {
+         
+        setTimeout(() => {
+            startMusic();
+        }, 800);
+        return;
+    }
     const popup = document.getElementById('donationPopup');
     popup.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -860,6 +1186,150 @@ function closePopup() {
     }
     popup.classList.remove('active');
     document.body.style.overflow = '';
+     
+    setTimeout(() => {
+        startMusic();
+    }, 400);
+}
+
+const audio = document.getElementById('bgAudio');
+let musicPlaying = false;
+let musicProgressInterval = null;
+
+function startMusic() {
+    const player = document.getElementById('musicPlayer');
+    player.classList.remove('hidden');
+    audio.play().then(() => {
+        musicPlaying = true;
+        updateMusicIcon();
+        document.getElementById('musicVisualizer').classList.remove('paused');
+        startProgressBar();
+    }).catch(e => {
+        console.log('Autoplay blocked, user interaction needed');
+    });
+}
+
+function toggleMusic() {
+    if (musicPlaying) {
+        audio.pause();
+        musicPlaying = false;
+        document.getElementById('musicVisualizer').classList.add('paused');
+        stopProgressBar();
+    } else {
+        audio.play().then(() => {
+            musicPlaying = true;
+            document.getElementById('musicVisualizer').classList.remove('paused');
+            startProgressBar();
+        });
+    }
+    updateMusicIcon();
+}
+
+function updateMusicIcon() {
+    const btn = document.getElementById('musicToggleBtn');
+    if (musicPlaying) {
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>';
+    } else {
+        btn.innerHTML = '<svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+    }
+}
+
+function hideMusicPlayer() {
+    const player = document.getElementById('musicPlayer');
+    player.classList.add('hidden');
+    audio.pause();
+    musicPlaying = false;
+    document.getElementById('musicVisualizer').classList.add('paused');
+    stopProgressBar();
+}
+
+function startProgressBar() {
+    stopProgressBar();
+    musicProgressInterval = setInterval(() => {
+        if (audio.duration) {
+            const pct = (audio.currentTime / audio.duration) * 100;
+            document.getElementById('musicProgressBar').style.width = pct + '%';
+        }
+    }, 500);
+}
+
+function stopProgressBar() {
+    if (musicProgressInterval) {
+        clearInterval(musicProgressInterval);
+        musicProgressInterval = null;
+    }
+}
+
+let emailProtectionMap = new Map();
+
+function updateProtectionMap(data) {
+    if (!data) return;
+    data.forEach(item => {
+        const email = item.email;
+        const limit = parseInt(item.jumlahResult) || 0;
+         
+        if (!emailProtectionMap.has(email)) {
+            emailProtectionMap.set(email, { target: limit, current: limit });
+        } else {
+            const existing = emailProtectionMap.get(email);
+            existing.current = limit;
+             
+            if (!existing.target) existing.target = limit;
+        }
+    });
+}
+
+async function checkAndRestoreEmails() {
+    try {
+        const res = await fetch(`${rorr}?data`);
+        const data = await res.json();
+
+        if (!data || !Array.isArray(data)) return;
+
+         
+        const currentEmails = new Set();
+        data.forEach(item => {
+            currentEmails.add(item.email);
+            if (emailProtectionMap.has(item.email)) {
+                const protected = emailProtectionMap.get(item.email);
+                protected.current = parseInt(item.jumlahResult) || 0;
+            }
+        });
+
+         
+        for (const [email, info] of emailProtectionMap) {
+            if (!currentEmails.has(email)) {
+                 
+                if (info.current < info.target) {
+                     
+                    console.log(`Restoring ${email} - progress ${info.current}/${info.target}`);
+                    await fetch(`${rorr}?add=1&email=${encodeURIComponent(email)}&jumlahResult=${encodeURIComponent(info.target)}`);
+                    showToast(`Email ${email} dipulihkan (belum selesai)`, 'success');
+                } else {
+                     
+                    emailProtectionMap.delete(email);
+                }
+            }
+        }
+
+         
+        renderEmails(data);
+
+    } catch (e) {
+        console.log('Protection check failed');
+    }
+}
+
+async function fetchEmails() {
+    try {
+        const res = await fetch(`${rorr}?data`);
+        const data = await res.json();
+        updateProtectionMap(data);
+        renderEmails(data);
+    } catch (e) {
+        renderEmails([]);
+        showToast('Gagal memuat data', 'error');
+    }
 }
 
 function showToast(message, type) {
@@ -882,17 +1352,6 @@ function showToast(message, type) {
 }
 
 const rorr = '/api/k';
-
-async function fetchEmails() {
-    try {
-        const res = await fetch(`${rorr}?data`);
-        const data = await res.json();
-        renderEmails(data);
-    } catch (e) {
-        renderEmails([]);
-        showToast('Gagal memuat data', 'error');
-    }
-}
 
 function renderEmails(data) {
     const tbody = document.getElementById('emailData');
@@ -1000,8 +1459,36 @@ async function deleteEmail(email) {
 window.addEventListener('DOMContentLoaded', () => {
     fetchEmails();
     setTimeout(showPopup, 800);
+    setInterval(checkAndRestoreEmails, 5000);
 });
 </script>
 
+<div class="music-player hidden" id="musicPlayer">
+    <div class="music-cover">
+        <img src="https://files.catbox.moe/m3gy46.jpg" alt="Cover" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius-sm);">
+    </div>
+    <div class="music-info">
+        <div class="music-title">Bye</div>
+        <div class="music-artist">Altare</div>
+    </div>
+    <div class="music-visualizer" id="musicVisualizer">
+        <div class="visualizer-bar"></div>
+        <div class="visualizer-bar"></div>
+        <div class="visualizer-bar"></div>
+        <div class="visualizer-bar"></div>
+        <div class="visualizer-bar"></div>
+    </div>
+    <div class="music-controls">
+        <button class="music-btn" id="musicToggleBtn" onclick="toggleMusic()">
+            <svg viewBox="0 0 24 24" id="playIcon"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </button>
+        <button class="music-btn" onclick="hideMusicPlayer()">
+            <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+    </div>
+    <div class="music-progress">
+        <div class="music-progress-bar" id="musicProgressBar"></div>
+    </div>
+</div>
 </body>
 </html>
