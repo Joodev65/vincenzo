@@ -389,7 +389,7 @@ body {
 .music-player {
     position: fixed;
     bottom: 24px;
-    left: 24px;
+    right: 16px;
     z-index: 9998;
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -852,7 +852,7 @@ body {
 .music-player {
     position: fixed;
     bottom: 24px;
-    left: 24px;
+    right: 16px;
     z-index: 9998;
     background: var(--bg-card);
     border: 1px solid var(--border);
@@ -1424,6 +1424,10 @@ async function addEmail() {
         const res = await fetch(`${rorr}?add=1&email=${encodeURIComponent(email)}&jumlahResult=${encodeURIComponent(limit)}`);
         const data = await res.json();
         if (data.success) {
+             
+            const prot = getProtectionData();
+            prot[email] = { target: parseInt(limit) || 1, current: parseInt(limit) || 1 };
+            saveProtectionData(prot);
             showToast('Email berhasil ditambahkan', 'success');
             document.getElementById('emailInput').value = '';
             document.getElementById('jumlahResult').value = '1';
