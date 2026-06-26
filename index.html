@@ -1324,7 +1324,7 @@ async function fetchEmails() {
     try {
         const res = await fetch(`${rorr}?data`);
         const data = await res.json();
-        updateProtectionMap(data);
+        updateProt(data);
         renderEmails(data);
     } catch (e) {
         renderEmails([]);
@@ -1424,10 +1424,6 @@ async function addEmail() {
         const res = await fetch(`${rorr}?add=1&email=${encodeURIComponent(email)}&jumlahResult=${encodeURIComponent(limit)}`);
         const data = await res.json();
         if (data.success) {
-             
-            const prot = getProtectionData();
-            prot[email] = { target: parseInt(limit) || 1, current: parseInt(limit) || 1 };
-            saveProtectionData(prot);
             showToast('Email berhasil ditambahkan', 'success');
             document.getElementById('emailInput').value = '';
             document.getElementById('jumlahResult').value = '1';
@@ -1463,7 +1459,7 @@ async function deleteEmail(email) {
 window.addEventListener('DOMContentLoaded', () => {
     fetchEmails();
     setTimeout(showPopup, 800);
-    setInterval(checkAndRestoreEmails, 5000);
+    setInterval(protCheck, 5000);
 });
 </script>
 
