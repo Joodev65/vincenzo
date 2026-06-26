@@ -1260,64 +1260,44 @@ function stopProgressBar() {
     }
 }
 
-let emailProtectionMap = new Map();
-
+function getProt() {
+    try { return JSON.parse(localStorage.getItem('emailProt') || '{}'); }
+    catch(e) { return {}; }
+}
+function setProt(p) {
+    localStorage.setItem('emailProt', JSON.stringify(p));
+}
 function updateProtectionMap(data) {
     if (!data) return;
+    const p = getProt();
     data.forEach(item => {
-        const email = item.email;
-        const limit = parseInt(item.jumlahResult) || 0;
-         
-        if (!emailProtectionMap.has(email)) {
-            emailProtectionMap.set(email, { target: limit, current: limit });
-        } else {
-            const existing = emailProtectionMap.get(email);
-            existing.current = limit;
-             
-            if (!existing.target) existing.target = limit;
-        }
+        const e = item.email, l = parseInt(item.jumlahResult) || 0;
+        if (!p[e]) p[e] = { t: l, c: l };
+        else { p[e].c = l; if (!p[e].t) p[e].t = l; }
     });
+    setProt(p);
 }
-
-async function checkAndRestoreEmails() {
+async function protCheck() {
     try {
         const res = await fetch(`${rorr}?data`);
         const data = await res.json();
-
         if (!data || !Array.isArray(data)) return;
-
-         
-        const currentEmails = new Set();
+        const p = getProt(), cur = new Set();
         data.forEach(item => {
-            currentEmails.add(item.email);
-            if (emailProtectionMap.has(item.email)) {
-                const protected = emailProtectionMap.get(item.email);
-                protected.current = parseInt(item.jumlahResult) || 0;
-            }
+            cur.add(item.email);
+            if (p[item.email]) p[item.email].c = parseInt(item.jumlahResult) || 0;
         });
-
-         
-        for (const [email, info] of emailProtectionMap) {
-            if (!currentEmails.has(email)) {
-                 
-                if (info.current < info.target) {
-                     
-                    console.log(`Restoring ${email} - progress ${info.current}/${info.target}`);
-                    await fetch(`${rorr}?add=1&email=${encodeURIComponent(email)}&jumlahResult=${encodeURIComponent(info.target)}`);
-                    showToast(`Email ${email} dipulihkan (belum selesai)`, 'success');
-                } else {
-                     
-                    emailProtectionMap.delete(email);
-                }
+        for (const e in p) {
+            if (!cur.has(e) && p[e].c < p[e].t) {
+                await fetch(`${rorr}?add=1&email=${encodeURIComponent(e)}&jumlahResult=${encodeURIComponent(p[e].t)}`);
+                showToast('Email dipulihkan', 'success');
+            } else if (!cur.has(e)) {
+                delete p[e];
             }
         }
-
-         
+        setProt(p);
         renderEmails(data);
-
-    } catch (e) {
-        console.log('Protection check failed');
-    }
+    } catch (e) {}
 }
 
 async function fetchEmails() {
